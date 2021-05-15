@@ -34,7 +34,7 @@ NSMAP = {
 }
 
 class CardExclusionAddTest(unittest.TestCase):
-    def test_send_xml_body_from_string_check_status_code_and_content_type(self):
+    def test_send_xml_body_from_string_check_status_code_and_content_type(self):#проверка что карта добавлена в отпуск(исключение),проверка структуры ответа: страна, начала\конец даты отпуска
         response = requests.post("http://192.168.131.158:8088",headers={"Content-Type": "text/xml"},data=fixed_xml_body_as_string())
         response_body_as_xml = et.fromstring(response.content)
         answer = response.content

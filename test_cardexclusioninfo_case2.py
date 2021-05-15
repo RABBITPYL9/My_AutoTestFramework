@@ -2,7 +2,7 @@ import requests
 import unittest
 import xml.etree.ElementTree as et
 
-def fixed_xml_body_as_string():
+def fixed_xml_body_as_string():#тело запроса XML
     return """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mux="http://www.psit.ru/3CardF/MUXAntiFraud">
    <soapenv:Header/>
@@ -23,7 +23,7 @@ NSMAP = {
     'mux': "http://www.psit.ru/3CardF/MUXAntiFraud"
 }
 
-class CardExclusionAddTest(unittest.TestCase):#получение и проверка даты начала,конца отпуска(исключения), страны отпуска
+class CardExclusionAddTest(unittest.TestCase):#получение и проверка даты начала,конца отпуска(исключения), страны отпуска(ответ на тело запроса)
     def test_send_xml_body_from_string_check_status_code_and_content_type(self):
         response = requests.post("http://192.168.131.158:8088",headers={"Content-Type": "text/xml"},data=fixed_xml_body_as_string())
         answer = response.content
