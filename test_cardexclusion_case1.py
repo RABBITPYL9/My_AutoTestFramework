@@ -37,9 +37,14 @@ class CardExclusionAddTest(unittest.TestCase):
     def test_send_xml_body_from_string_check_status_code_and_content_type(self):
         response = requests.post("http://192.168.131.158:8088",headers={"Content-Type": "text/xml"},data=fixed_xml_body_as_string())
         response_body_as_xml = et.fromstring(response.content)
-        xml_tree = et.ElementTree(response_body_as_xml)
         answer = response.content
         response_body_as = et.fromstring(answer)
         xml_tr = et.ElementTree(response_body_as)
+        status_code = response.status_code
+        assert status_code == 200
+        structure_startdate = xml_tr.find('*//mux:StartDateTime', namespaces=NSMAP)
+        assert structure_startdate.text == '2021-05-14T00:00:00'
+        structure_enddate = xml_tr.find('*//mux:EndDateTime', namespaces=NSMAP)
+        assert structure_enddate.text == '2021-05-14T00:00:00'
         savings_accounts = xml_tr.find('*//mux:Country', namespaces=NSMAP)
         assert savings_accounts.text == 'ABW'
